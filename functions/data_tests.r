@@ -1,10 +1,8 @@
 # This file contains tests to be applied to 
 # the Vegvesen stations-data *after* being transformed
 # to a data frame. 
-# 
-# All tests are packed in a function test_stations_metadata that apples
-# all the aforementioned tests
 
+# Function to test if the column names of the data frame are as expected.
 test_stations_metadata_colnames <-
   function(df) {
     
@@ -17,6 +15,7 @@ test_stations_metadata_colnames <-
     }
   }
 
+# Function to test the number of rows in the data frame falls within an expected range.
 test_stations_metadata_nrows <-
   function(df) {
     
@@ -32,6 +31,7 @@ test_stations_metadata_nrows <-
     }
   }
 
+# Function to test if the data frame columns have the expected data types.
 test_stations_metadata_coltypes <-
   function(df) {
     expected_coltypes <-
@@ -44,7 +44,8 @@ test_stations_metadata_coltypes <-
       print("FAIL: Columns do not have the correct specification")
     }
   }
-  
+
+# Function to test the number of missing values in the data frame.
 test_stations_metadata_nmissing <-
   function(df) {
     max_miss_vals <- 200
@@ -56,17 +57,18 @@ test_stations_metadata_nmissing <-
     }
   }
 
+# Function to test if the 'latestData' column has the expected UTC time zone.
 test_stations_metadata_latestdata_timezone <-
   function(df) {
     
     if (attr(df$latestData,"tzone")=="UTC") {
       print("PASS: latestData has UTC-time zone")
     } else {
-      print("FAIL: latestData does not have expected UTC-time zone")
+      print("FAIL: latestData does not have the expected UTC-time zone")
     }
   }
 
-
+# Function that combines all the individual tests into a single test suite.
 test_stations_metadata <- 
   function(df){
     test_stations_metadata_colnames(df)
@@ -75,8 +77,3 @@ test_stations_metadata <-
     test_stations_metadata_nrows(df)
     test_stations_metadata_latestdata_timezone(df)
   }
-
-
-
-
-
